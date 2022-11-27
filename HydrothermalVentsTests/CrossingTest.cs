@@ -21,8 +21,8 @@ namespace HydrothermalVentsTests
             Crossing<int, Linesegment<int>> cross = new Crossing<int, Linesegment<int>>();
             cross.Position = new int[] { 10, 20 };
 
-            Assert.IsTrue(cross.Position[0] == 10, "start should be the new vector.");
-            Assert.IsTrue(cross.Position[0] == 10, "start should be the new vector.");
+            Assert.IsTrue(cross.Position[0] == 10);
+            Assert.IsTrue(cross.Position[0] == 10);
         }
 
         [TestMethod]
@@ -36,8 +36,8 @@ namespace HydrothermalVentsTests
 
             cross.Elements = listLines;
 
-            Assert.IsTrue(cross.Elements[0].Start[0] == 1, "start should be the new vector.");
-            Assert.IsTrue(cross.Elements[0].End[1] == 4, "start should be the new vector.");
+            Assert.IsTrue(cross.Elements[0].Start[0] == 1);
+            Assert.IsTrue(cross.Elements[0].End[1] == 4);
 
         }
 
@@ -48,8 +48,8 @@ namespace HydrothermalVentsTests
             Linesegment<int> line = new Linesegment<int>(new int[] { 1, 2 }, new int[] { 3, 4 });
             cross.AddLinesegement(ref line);
 
-            Assert.IsTrue(cross.Elements[0].Start[0] == 1, "start should be the new vector.");
-            Assert.IsTrue(cross.Elements[0].End[1] == 4, "start should be the new vector.");
+            Assert.IsTrue(cross.Elements[0].Start[0] == 1);
+            Assert.IsTrue(cross.Elements[0].End[1] == 4);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace BusinessLogicTests
 
             line.Start = new int[] { 10, 20 };
 
-            Assert.IsTrue(line.Start[0] == start[0], "start should be the new vector.");
-            Assert.IsTrue(line.Start[1] == start[1], "start should be the new vector.");
+            Assert.IsTrue(line.Start[0] == start[0]);
+            Assert.IsTrue(line.Start[1] == start[1]);
         }
     }
 }
