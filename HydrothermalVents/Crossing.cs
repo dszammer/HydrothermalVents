@@ -4,29 +4,30 @@ using System.Collections.Generic;
 
 namespace HydrothermalVents
 {
-    public class Crossing<T> where T : struct
+    public class Crossing<U,T>  where U : struct
+                                where T : class 
     {
         public Crossing()
         {
-            m_position = new T[] { };
-            m_lines = new List<Linesegment<T>>();
+            m_position = new U[] { };
+            m_elements = new List<T>();
         }
-        public Crossing(T[] position, List<Linesegment<T>> lines)
+        public Crossing(U[] position, List<T> lines)
         {
             m_position = position;
-            m_lines = lines;
+            m_elements = lines;
         }
 
-        public T[] Position { get => m_position; set => m_position = value; }
-        public List<Linesegment<T>> Lines { get => m_lines; set => m_lines = value; }
+        public U[] Position { get => m_position; set => m_position = value; }
+        public List<T> Elements { get => m_elements; set => m_elements = value; }
 
 
-        public void AddLinesegement(ref Linesegment<T> line)
+        public void AddLinesegement(ref T line)
         {
-            m_lines.Add(line);
+            m_elements.Add(line);
         }
 
-        private T[] m_position;
-        private List<Linesegment<T>> m_lines;
+        private U[] m_position;
+        private List<T> m_elements;
     }
 }
