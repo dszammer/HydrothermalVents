@@ -9,10 +9,19 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestCTOR()
         {
-            Vector<int> start = new Vector<int>();
-            Vector<int> end = new Vector<int>();
+            Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
+        }
+        [TestMethod]
+        public void TestGetSet()
+        {
+            int[] start = new int[] { 10, 20 };
 
-            Line<int> line;
+            Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
+
+            line.Start = new int[] { 10, 20 };
+
+            Assert.IsTrue(line.Start[0] == start[0], "start should be the new vector.");
+            Assert.IsTrue(line.Start[1] == start[1], "start should be the new vector.");
         }
     }
 }
