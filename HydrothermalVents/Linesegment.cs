@@ -5,6 +5,10 @@ using System.Collections.Generic;
 
 namespace HydrothermalVents
 {
+    ///// <summary>
+    /// Generic line segment class.
+    /// A line segment is defined by its start and end point in n-dimensional space.
+    /// </summary>
     public class LineSegment<T> where T : struct
     {
         public LineSegment(T[] start, T[] end)
@@ -16,8 +20,8 @@ namespace HydrothermalVents
             m_end = end;
         }
 
-        public T[] Start { get => m_start; set => m_start = value; }
-        public T[] End { get => m_end; set => m_end = value; }
+        public T[] Start { get => m_start; }
+        public T[] End { get => m_end; }
 
         private T[] m_start;
         private T[] m_end;

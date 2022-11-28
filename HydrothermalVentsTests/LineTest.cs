@@ -16,13 +16,11 @@ namespace BusinessLogicTests
             Assert.ThrowsException<LineSegmentException>(delegate () { LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
         }
         [TestMethod]
-        public void TestGetSet()
+        public void TestGet()
         {
             int[] start = new int[] { 10, 20 };
 
-            LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
-
-            line.Start = new int[] { 10, 20 };
+            LineSegment<int> line = new LineSegment<int>(new int[] { 10, 20 }, new int[] { 0, 0 });
 
             Assert.IsTrue(line.Start[0] == start[0]);
             Assert.IsTrue(line.Start[1] == start[1]);
