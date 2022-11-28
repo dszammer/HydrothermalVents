@@ -55,6 +55,7 @@ namespace HydrothermalVents
         /// by solving:
         /// Cx = ASx + (AEx - ASx)t = BSx + (BEx - BSx)t
         /// Cy = ASy + (AEy - ASy)u = BSy + (BEy - BSy)u
+        /// https://en.wikipedia.org/wiki/Intersection_(geometry)#Two_line_segments
         /// param linesegmentA: first of the two line segments.
         /// param linesegmentB: second of the two line segments.
         /// return: If an intersection exist the point of intersection (containing both line segments).
