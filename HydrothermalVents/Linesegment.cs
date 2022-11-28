@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// (c)2022 David Szammer. All rights reserved.
 
+using System;
+using System.Collections.Generic;
 
 namespace HydrothermalVents
 {
-    public class Linesegment<T> where T : struct
+    public class LineSegment<T> where T : struct
     {
-        public Linesegment(T[] start, T[] end)
+        public LineSegment(T[] start, T[] end)
         {
             if (start.Length != end.Length)
                 throw new LinesegmentException("Dimension missmatch.");

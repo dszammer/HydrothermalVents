@@ -1,4 +1,6 @@
-﻿using System;
+﻿// (c)2022 David Szammer. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 
 

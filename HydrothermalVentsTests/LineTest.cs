@@ -1,3 +1,5 @@
+// (c)2022 David Szammer. All rights reserved.
+
 using HydrothermalVents;
 
 namespace BusinessLogicTests
@@ -8,17 +10,17 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestCTOR()
         {
-            Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
+            LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
 
 
-            Assert.ThrowsException<LinesegmentException>(delegate () { Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
+            Assert.ThrowsException<LinesegmentException>(delegate () { LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
         }
         [TestMethod]
         public void TestGetSet()
         {
             int[] start = new int[] { 10, 20 };
 
-            Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
+            LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
 
             line.Start = new int[] { 10, 20 };
 
