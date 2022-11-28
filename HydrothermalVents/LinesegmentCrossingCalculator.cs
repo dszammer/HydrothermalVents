@@ -72,7 +72,7 @@ namespace HydrothermalVents
                 return null; 
             }
 
-            if (((top * bottom) < 0) && (top > bottom))
+            if (((top * bottom) < 0) || (Math.Abs(top) > Math.Abs(bottom)))
             {
                 //Intersection exist for lines. In case of line segments,
                 //the intersection in outside of the line segments.
