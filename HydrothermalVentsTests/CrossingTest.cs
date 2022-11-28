@@ -1,6 +1,6 @@
 ﻿using HydrothermalVents;
 
-namespace HydrothermalVentsTests
+namespace BusinessLogicTests
 {
     [TestClass]
     public class CrossingTest

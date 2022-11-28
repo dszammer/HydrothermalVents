@@ -1,7 +1,7 @@
 ﻿using HydrothermalVents;
 using System.Collections.Generic;
 
-namespace HydrothermalVentsTests
+namespace BusinessLogicTests
 {
     [TestClass]
     public class LinesegmentCrossingCalculatorTest

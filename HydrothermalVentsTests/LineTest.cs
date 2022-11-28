@@ -9,6 +9,9 @@ namespace BusinessLogicTests
         public void TestCTOR()
         {
             Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
+
+
+            Assert.ThrowsException<LinesegmentException>(delegate () { Linesegment<int> line = new Linesegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
         }
         [TestMethod]
         public void TestGetSet()
