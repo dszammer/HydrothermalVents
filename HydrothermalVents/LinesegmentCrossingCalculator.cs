@@ -8,24 +8,37 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
+    /// <summary>
+    /// Class to calculate the crossing points of line segments.
+    /// </summary>
     public class LineSegmentCrossingCalculator
     {
+        /// <summary>
+        /// Default CTOR
+        /// </summary>
         public LineSegmentCrossingCalculator() 
         {
             m_crossings = new Dictionary<int[], Crossing<int, LineSegment<int>>> ();
             m_linesegments = new List<LineSegment<int>> ();
         }
 
-        public void AddLinesegment(LineSegment<int> linesegment)
+        /// <summary>
+        /// Adds a line segment to the m_linesegments and triggers the calculation of crossing points 
+        /// with all lines segment already containing.
+        /// Calculates crossing points with all line segments contained in m_linesegments.
+        /// All found new crossing points are added to m_crossings.
+        /// param lineSegment: the new line segment added to the list
+        /// </summary>
+        public void AddLinesegment(LineSegment<int> lineSegment)
         {
             foreach (LineSegment<int> linesegmentFromList in m_linesegments)
             {
-                Crossing<int, LineSegment<int>>? crossing = CalculateCrossing(linesegmentFromList,ref linesegment);
+                Crossing<int, LineSegment<int>>? crossing = CalculateCrossing(linesegmentFromList,ref lineSegment);
                 if (crossing != null) 
                 {
                     if (m_crossings.ContainsKey(crossing.Position))
                     {
-                        m_crossings[crossing.Position].AddLinesegement(ref linesegment);
+                        m_crossings[crossing.Position].AddElement(ref lineSegment);
                     }
                     else
                     {
@@ -33,7 +46,7 @@ namespace HydrothermalVents
                     }
                 }
             }
-            m_linesegments.Add(linesegment);
+            m_linesegments.Add(lineSegment);
 
         }
 

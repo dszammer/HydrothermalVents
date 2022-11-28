@@ -48,7 +48,7 @@ namespace BusinessLogicTests
         {
             Crossing<int, LineSegment<int>> cross = new Crossing<int, LineSegment<int>>();
             LineSegment<int> line = new LineSegment<int>(new int[] { 1, 2 }, new int[] { 3, 4 });
-            cross.AddLinesegement(ref line);
+            cross.AddElement(ref line);
 
             Assert.IsTrue(cross.Elements[0].Start[0] == 1);
             Assert.IsTrue(cross.Elements[0].End[1] == 4);
