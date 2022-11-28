@@ -13,7 +13,7 @@ namespace BusinessLogicTests
             LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 });
 
 
-            Assert.ThrowsException<LinesegmentException>(delegate () { LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
+            Assert.ThrowsException<LineSegmentException>(delegate () { LineSegment<int> line = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 ,0}); });
         }
         [TestMethod]
         public void TestGetSet()

@@ -10,7 +10,7 @@ namespace HydrothermalVents
         public LineSegment(T[] start, T[] end)
         {
             if (start.Length != end.Length)
-                throw new LinesegmentException("Dimension missmatch.");
+                throw new LineSegmentException("Dimension missmatch.");
 
             m_start = start;
             m_end = end;

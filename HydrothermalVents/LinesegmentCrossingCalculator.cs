@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
-    public class LinesegmentCrossingCalculator
+    public class LineSegmentCrossingCalculator
     {
-        public LinesegmentCrossingCalculator() 
+        public LineSegmentCrossingCalculator() 
         {
             m_crossings = new Dictionary<int[], Crossing<int, LineSegment<int>>> ();
             m_linesegments = new List<LineSegment<int>> ();

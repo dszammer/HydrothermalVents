@@ -11,13 +11,13 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestCTOR()
         {
-            LinesegmentCrossingCalculator calc = new LinesegmentCrossingCalculator();
+            LineSegmentCrossingCalculator calc = new LineSegmentCrossingCalculator();
         }
 
         [TestMethod]
         public void TestAddLineWithCrossing()
         {
-            LinesegmentCrossingCalculator calc = new LinesegmentCrossingCalculator();
+            LineSegmentCrossingCalculator calc = new LineSegmentCrossingCalculator();
 
             //Line segments are crossing.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 2 }, new int[] { 3, 4 });
@@ -33,7 +33,7 @@ namespace BusinessLogicTests
         public void TestAddLineParrallels()
         {
             
-            LinesegmentCrossingCalculator calc = new LinesegmentCrossingCalculator();
+            LineSegmentCrossingCalculator calc = new LineSegmentCrossingCalculator();
 
             // Line segments are parallel.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 2 });
@@ -48,7 +48,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestAddLineOutOfBounds()
         {
-            LinesegmentCrossingCalculator calc = new LinesegmentCrossingCalculator();
+            LineSegmentCrossingCalculator calc = new LineSegmentCrossingCalculator();
             
             // Lines are crossing but the crossing point is outside of the line segments.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 0 }, new int[] { 1, 2 });
