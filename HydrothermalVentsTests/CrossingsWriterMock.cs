@@ -11,6 +11,8 @@ namespace HydrothermalVentsTests
 {
     public class CrossingsWriterMock<U,T> : ICrossingsWriter<U,T> where U : struct where T : class
     {
-        public void writeCrossings(ref List<Crossing<U, T>> crossings) { }
+        public void writeCrossings(List<Crossing<U, T>> crossings) { m_written = true; }
+
+        public bool m_written = false;
     }
 }

@@ -11,6 +11,6 @@ namespace HydrothermalVents
     public interface ICrossingsWriter<U, T> where U : struct
                                             where T : class
     {
-        public void writeCrossings(ref List<Crossing<U,T>> crossings);
+        public void writeCrossings(List<Crossing<U,T>> crossings);
     }
 }

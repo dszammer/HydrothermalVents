@@ -4,39 +4,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
 namespace HydrothermalVents
 {
+    /// <summary>
+    /// Core BL class
+    /// Calculates all crossing points of the provided line segments.
+    /// </summary>
     public class HydrothermalVentLineCrossings<U,T> where U: struct where T: struct
     {
+        /// <summary>
+        /// CTOR
+        /// Provide interfaces to the IOParsers
+        /// </summary>
         public HydrothermalVentLineCrossings(ref ILineSegmentReader<U> reader, ref ICrossingsWriter<T, LineSegment<U>> writer) 
         {
             m_reader = reader;
             m_writer = writer;
 
             m_calculator = new LineSegmentCrossingCalculator<U,T>();
+            m_linesegments = new List<LineSegment<U>>();
+            m_crossings = new Dictionary<T[], Crossing<T, LineSegment<U>>>();
         }
 
+        /// <summary>
+        /// Fetches line segments from the provided reader until exhausted.
+        /// Crossings of each new line segment are calculated with all previously read line segments.
+        /// Finally the crossings are passed to the writer.
+        /// return: the final number of line segment crossings
+        /// </summary>
         public int CalculateAllLineSegementCrossings()
         {
-            LineSegment<U>? linesegment;
-            while ((linesegment = m_reader.GetLineSegment()) != null)
+            LineSegment<U>? lineSegment;
+            while ((lineSegment = m_reader.GetLineSegment()) != null)
             {
-                AddLinesegment(ref linesegment);
+                CalculateAllCrossings(ref lineSegment);
+                m_linesegments.Add(lineSegment);
             }
 
-             return m_crossings.Count;
+            m_writer.writeCrossings(m_crossings.Values.ToList());
+
+            return m_crossings.Count;
         }
        
         /// <summary>
-        /// Adds a line segment to the m_linesegments and triggers the calculation of crossing points 
-        /// with all lines segment already containing.
         /// Calculates crossing points with all line segments contained in m_linesegments.
         /// All found new crossing points are added to m_crossings.
-        /// param lineSegment: the new line segment added to the list
+        /// param lineSegment: the new line segment.
         /// </summary>
-        private void AddLinesegment(ref LineSegment<U> lineSegment)
+        private void CalculateAllCrossings(ref LineSegment<U> lineSegment)
         {
             foreach (LineSegment<U> linesegmentFromList in m_linesegments)
             {
@@ -53,15 +68,14 @@ namespace HydrothermalVents
                     }
                 }
             }
-            m_linesegments.Add(lineSegment);
         }
+        public Dictionary<T[], Crossing<T, LineSegment<U>>> Crossings { get => m_crossings; set => m_crossings = value; }
+        public List<LineSegment<U>> Linesegments { get => m_linesegments; set => m_linesegments = value; }
 
         private ILineSegmentReader<U> m_reader;
         private ICrossingsWriter<T, LineSegment<U>> m_writer;
-        private LineSegmentCrossingCalculator<U, T> m_calculator;
 
-        public Dictionary<T[], Crossing<T, LineSegment<U>>> Crossings { get => m_crossings; set => m_crossings = value; }
-        public List<LineSegment<U>> Linesegments { get => m_linesegments; set => m_linesegments = value; }
+        private LineSegmentCrossingCalculator<U, T> m_calculator;
 
         private Dictionary<T[], Crossing<T, LineSegment<U>>> m_crossings;
         private List<LineSegment<U>> m_linesegments;
