@@ -8,46 +8,22 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
+    public abstract class AbstractCrossingCalculator <U,T> where U : class where T: class
+    {
+        public abstract U? CalculateCrossing(T elementA, T elementB);
+    }
+
+
     /// <summary>
     /// Class to calculate the crossing points of line segments.
     /// </summary>
-    public class LineSegmentCrossingCalculator
+    public class LineSegmentCrossingCalculator<U,T> where U : struct where T : struct// : AbstractCrossingCalculator<Crossing<int, LineSegment<int>>, LineSegment<int>>
     {
         /// <summary>
         /// Default CTOR
         /// </summary>
         public LineSegmentCrossingCalculator() 
         {
-            m_crossings = new Dictionary<int[], Crossing<int, LineSegment<int>>> ();
-            m_linesegments = new List<LineSegment<int>> ();
-        }
-
-        /// <summary>
-        /// Adds a line segment to the m_linesegments and triggers the calculation of crossing points 
-        /// with all lines segment already containing.
-        /// Calculates crossing points with all line segments contained in m_linesegments.
-        /// All found new crossing points are added to m_crossings.
-        /// param lineSegment: the new line segment added to the list
-        /// </summary>
-        public void AddLinesegment(LineSegment<int> lineSegment)
-        {
-            foreach (LineSegment<int> linesegmentFromList in m_linesegments)
-            {
-                Crossing<int, LineSegment<int>>? crossing = CalculateCrossing(linesegmentFromList,ref lineSegment);
-                if (crossing != null) 
-                {
-                    if (m_crossings.ContainsKey(crossing.Position))
-                    {
-                        m_crossings[crossing.Position].AddElement(ref lineSegment);
-                    }
-                    else
-                    {
-                        m_crossings.Add(crossing.Position, crossing);
-                    }
-                }
-            }
-            m_linesegments.Add(lineSegment);
-
         }
 
         /// <summary>
@@ -56,24 +32,24 @@ namespace HydrothermalVents
         /// Cx = ASx + (AEx - ASx)t = BSx + (BEx - BSx)t
         /// Cy = ASy + (AEy - ASy)u = BSy + (BEy - BSy)u
         /// https://en.wikipedia.org/wiki/Intersection_(geometry)#Two_line_segments
-        /// param linesegmentA: first of the two line segments.
-        /// param linesegmentB: second of the two line segments.
+        /// param elementA: first of the two line segments.
+        /// param elementB: second of the two line segments.
         /// return: If an intersection exist the point of intersection (containing both line segments).
         ///         null otherwise.
         /// </summary>
-        private Crossing<int, LineSegment<int>>? CalculateCrossing(LineSegment<int> linesegmentA, ref LineSegment<int> linesegmentB)
+        public Crossing<T, LineSegment<U>>? CalculateCrossing(LineSegment<U> elementA, LineSegment<U> elementB)
         {
-            int Ax = linesegmentA.Start[0];
-            int Ay = linesegmentA.Start[1];
+            int Ax = (int)(object)elementA.Start[0];
+            int Ay = (int)(object)elementA.Start[1];
 
-            int Bx = linesegmentA.End[0];
-            int By = linesegmentA.End[1];
+            int Bx = (int)(object)elementA.End[0];
+            int By = (int)(object)elementA.End[1];
 
-            int Cx = linesegmentB.Start[0];
-            int Cy = linesegmentB.Start[1];
+            int Cx = (int)(object)elementB.Start[0];
+            int Cy = (int)(object)elementB.Start[1];
 
-            int Dx = linesegmentB.End[0];
-            int Dy = linesegmentB.End[1];
+            int Dx = (int)(object)elementB.End[0];
+            int Dy = (int)(object)elementB.End[1];
 
             int top = ((Dx - Cx) * (Ay - Cy)) - ((Dy - Cy) * (Ax - Cx));
             int bottom = ((Dy - Cy) * (Bx - Ax)) - ((Dx - Cx) * (By - Ay));
@@ -96,14 +72,7 @@ namespace HydrothermalVents
             int x = Ax + (((Bx - Ax) * top) / bottom);
             int y = Ay + (((By - Ay) * top) / bottom);
 
-            return new Crossing<int, LineSegment<int>>(new int[] { x, y }, new List<LineSegment<int>>() { linesegmentA, linesegmentB });
+            return new Crossing<T, LineSegment<U>>(new T[] { (T)(object)x, (T)(object)y }, new List<LineSegment<U>>() { elementA, elementB });
         }
-
-        public Dictionary<int[], Crossing<int, LineSegment<int>>> Crossings { get => m_crossings; set => m_crossings = value; }
-        public List<LineSegment<int>> Linesegments { get => m_linesegments; set => m_linesegments = value; }
-
-        private Dictionary<int[], Crossing<int, LineSegment<int>>> m_crossings;
-        private List<LineSegment<int>> m_linesegments;
-
     }
 }
