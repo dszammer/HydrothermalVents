@@ -24,6 +24,8 @@ namespace HydrothermalVents // Note: actual namespace depends on the project nam
                 HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int,int>(ref reader,ref writer,ref calculator);
 
                 HVLC.CalculateAllLineSegementCrossings();
+                HVLC.PaintAllLineSegementsAndCrossings();
+                HVLC.WriteAllLineSegementCrossings();
 
                 return 0;
             }
