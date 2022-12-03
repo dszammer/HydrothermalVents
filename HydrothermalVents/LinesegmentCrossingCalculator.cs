@@ -51,7 +51,8 @@ namespace HydrothermalVents
             int Dx = (int)(object)elementB.End[0];
             int Dy = (int)(object)elementB.End[1];
 
-            int top = ((Dx - Cx) * (Ay - Cy)) - ((Dy - Cy) * (Ax - Cx));
+            int ttop = ((Dx - Cx) * (Ay - Cy)) - ((Dy - Cy) * (Ax - Cx));
+            int utop = ((Cy - Ay) * (Ax - Bx)) - ((Cx - Ax) * (Ay - By));
             int bottom = ((Dy - Cy) * (Bx - Ax)) - ((Dx - Cx) * (By - Ay));
 
             if (bottom == 0)
@@ -62,15 +63,18 @@ namespace HydrothermalVents
                 return null; 
             }
 
-            if (((top * bottom) < 0) || (Math.Abs(top) > Math.Abs(bottom)))
+            if (((ttop * bottom) < 0) 
+                || ((utop * bottom) < 0)
+                || (Math.Abs(ttop) > Math.Abs(bottom))
+                || (Math.Abs(utop) > Math.Abs(bottom)))
             {
                 //Intersection exist for lines. In case of line segments,
                 //the intersection in outside of the line segments.
                 return null;
             }
 
-            int x = Ax + (((Bx - Ax) * top) / bottom);
-            int y = Ay + (((By - Ay) * top) / bottom);
+            int x = Ax + (((Bx - Ax) * ttop) / bottom);
+            int y = Ay + (((By - Ay) * ttop) / bottom);
 
             return new Crossing<T, LineSegment<U>>(new T[] { (T)(object)x, (T)(object)y }, new List<LineSegment<U>>() { elementA, elementB });
         }

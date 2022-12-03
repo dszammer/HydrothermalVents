@@ -49,8 +49,8 @@ namespace BusinessLogicTests
             LineSegmentCrossingCalculator<int, int> calc = new LineSegmentCrossingCalculator<int, int>();
             
             // Lines are crossing but the crossing point is outside of the line segments.
-            LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 0 }, new int[] { 1, 2 });
-            LineSegment<int> line2 = new LineSegment<int>(new int[] { 0, 3 }, new int[] { 3, 3 });
+            LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 4 }, new int[] { 3, 2 });
+            LineSegment<int> line2 = new LineSegment<int>(new int[] { 6, 6 }, new int[] { 5, 5 });
 
             Crossing<int, LineSegment<int>>? cross = calc.CalculateCrossing(line1, line2);
 
