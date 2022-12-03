@@ -22,5 +22,10 @@ namespace HydrothermalVents
                 throw new LineSegmentParserException("Bad input format.", ex);
             }
         }
+
+        public  string ToString(LineSegment<int> input)
+        {
+            throw new LineSegmentParserException("Not implemented");
+        }
     }
 }
