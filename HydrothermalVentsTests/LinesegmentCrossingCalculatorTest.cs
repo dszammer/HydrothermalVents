@@ -11,13 +11,13 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestCTOR()
         {
-            LineSegmentCrossingCalculator<int, int> calc = new LineSegmentCrossingCalculator<int, int>();
+            ICrossingCalculator<int, LineSegment<int>> calc = new LineSegmentCrossingCalculator();
         }
 
         [TestMethod]
         public void TestAddLineWithCrossing()
         {
-            LineSegmentCrossingCalculator<int, int> calc = new LineSegmentCrossingCalculator<int, int>();
+            ICrossingCalculator<int, LineSegment<int>> calc = new LineSegmentCrossingCalculator();
 
             //Line segments are crossing.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 2 }, new int[] { 3, 4 });
@@ -31,8 +31,8 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestAddLineParrallels()
         {
-            
-            LineSegmentCrossingCalculator<int, int> calc = new LineSegmentCrossingCalculator<int,int>();
+
+            ICrossingCalculator<int, LineSegment<int>> calc = new LineSegmentCrossingCalculator();
 
             // Line segments are parallel.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 2 });
@@ -46,7 +46,7 @@ namespace BusinessLogicTests
         [TestMethod]
         public void TestAddLineOutOfBounds()
         {
-            LineSegmentCrossingCalculator<int, int> calc = new LineSegmentCrossingCalculator<int, int>();
+            ICrossingCalculator<int, LineSegment<int>> calc = new LineSegmentCrossingCalculator();
             
             // Lines are crossing but the crossing point is outside of the line segments.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 1, 4 }, new int[] { 3, 2 });

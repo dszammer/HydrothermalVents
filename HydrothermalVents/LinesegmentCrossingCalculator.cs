@@ -7,25 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HydrothermalVents
-{
-    public abstract class AbstractCrossingCalculator <U,T> where U : class where T: class
-    {
-        public abstract U? CalculateCrossing(T elementA, T elementB);
-    }
-
-
+{ 
     /// <summary>
     /// Class to calculate the crossing points of line segments.
     /// </summary>
-    public class LineSegmentCrossingCalculator<U,T> where U : struct where T : struct// : AbstractCrossingCalculator<Crossing<int, LineSegment<int>>, LineSegment<int>>
+    public class LineSegmentCrossingCalculator : ICrossingCalculator<int, LineSegment<int>>
     {
-        /// <summary>
-        /// Default CTOR
-        /// </summary>
-        public LineSegmentCrossingCalculator() 
-        {
-        }
-
         /// <summary>
         /// Calculates the crossing point of two line segments in 2 dimensional space
         /// by solving:
@@ -37,19 +24,19 @@ namespace HydrothermalVents
         /// return: If an intersection exist the point of intersection (containing both line segments).
         ///         null otherwise.
         /// </summary>
-        public Crossing<T, LineSegment<U>>? CalculateCrossing(LineSegment<U> elementA, LineSegment<U> elementB)
+        public Crossing<int, LineSegment<int>>? CalculateCrossing(LineSegment<int> elementA, LineSegment<int> elementB)
         {
-            int Ax = (int)(object)elementA.Start[0];
-            int Ay = (int)(object)elementA.Start[1];
+            int Ax = elementA.Start[0];
+            int Ay = elementA.Start[1];
 
-            int Bx = (int)(object)elementA.End[0];
-            int By = (int)(object)elementA.End[1];
+            int Bx = elementA.End[0];
+            int By = elementA.End[1];
 
-            int Cx = (int)(object)elementB.Start[0];
-            int Cy = (int)(object)elementB.Start[1];
+            int Cx = elementB.Start[0];
+            int Cy = elementB.Start[1];
 
-            int Dx = (int)(object)elementB.End[0];
-            int Dy = (int)(object)elementB.End[1];
+            int Dx = elementB.End[0];
+            int Dy = elementB.End[1];
 
             int ttop = ((Dx - Cx) * (Ay - Cy)) - ((Dy - Cy) * (Ax - Cx));
             int utop = ((Cy - Ay) * (Ax - Bx)) - ((Cx - Ax) * (Ay - By));
@@ -76,7 +63,7 @@ namespace HydrothermalVents
             int x = Ax + (((Bx - Ax) * ttop) / bottom);
             int y = Ay + (((By - Ay) * ttop) / bottom);
 
-            return new Crossing<T, LineSegment<U>>(new T[] { (T)(object)x, (T)(object)y }, new List<LineSegment<U>>() { elementA, elementB });
+            return new Crossing<int, LineSegment<int>>(new int[] { x, y }, new List<LineSegment<int>>() { elementA, elementB });
         }
     }
 }

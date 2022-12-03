@@ -13,8 +13,9 @@ namespace BusinessLogicTests
         {
             ICrossingsWriter<int, LineSegment<int>> writer = new CrossingsWriterMock<int, LineSegment<int>>();
             ILineSegmentReader<int> reader = new LineSegmentReaderMock<int>(null);
+            ICrossingCalculator<int, LineSegment<int>> calculator = new LineSegmentCrossingCalculator();
 
-            HydrothermalVentLineCrossings<int, int> hydro = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer);
+            HydrothermalVentLineCrossings<int, int> hydro = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer, ref calculator);
         }
         [TestMethod]
         public void TestCalculateLineCrossings()
@@ -26,8 +27,9 @@ namespace BusinessLogicTests
 
             ICrossingsWriter<int, LineSegment<int>> writer = new CrossingsWriterMock<int, LineSegment<int>>();
             ILineSegmentReader<int> reader = new LineSegmentReaderMock<int>(new List<LineSegment<int>>() { line1, line2, line3});
+            ICrossingCalculator<int, LineSegment<int>> calculator = new LineSegmentCrossingCalculator();
 
-            HydrothermalVentLineCrossings<int, int> hydro = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer);
+            HydrothermalVentLineCrossings<int, int> hydro = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer, ref calculator);
 
             Assert.AreEqual(hydro.CalculateAllLineSegementCrossings(), 1) ;
             Assert.IsTrue(((CrossingsWriterMock<int, LineSegment<int>>)writer).m_written);

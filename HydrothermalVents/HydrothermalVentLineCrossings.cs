@@ -16,12 +16,12 @@ namespace HydrothermalVents
         /// CTOR
         /// Provide interfaces to the IOParsers
         /// </summary>
-        public HydrothermalVentLineCrossings(ref ILineSegmentReader<U> reader, ref ICrossingsWriter<T, LineSegment<U>> writer) 
+        public HydrothermalVentLineCrossings(ref ILineSegmentReader<U> reader, ref ICrossingsWriter<T, LineSegment<U>> writer, ref ICrossingCalculator<T, LineSegment<U>> calculator) 
         {
             m_reader = reader;
             m_writer = writer;
+            m_calculator = calculator;
 
-            m_calculator = new LineSegmentCrossingCalculator<U,T>();
             m_linesegments = new List<LineSegment<U>>();
             m_crossings = new Dictionary<T[], Crossing<T, LineSegment<U>>>();
         }
@@ -75,7 +75,7 @@ namespace HydrothermalVents
         private ILineSegmentReader<U> m_reader;
         private ICrossingsWriter<T, LineSegment<U>> m_writer;
 
-        private LineSegmentCrossingCalculator<U, T> m_calculator;
+        private ICrossingCalculator<T, LineSegment<U>> m_calculator;
 
         private Dictionary<T[], Crossing<T, LineSegment<U>>> m_crossings;
         private List<LineSegment<U>> m_linesegments;
