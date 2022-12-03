@@ -42,7 +42,7 @@ namespace HydrothermalVents
         /// In case an additional element is found that also crosses the position it can be added here.
         /// param element: element to add.
         /// </summary>
-        public void AddElement(ref T element)
+        public void AddElement(T element)
         {
             m_elements.Add(element);
         }

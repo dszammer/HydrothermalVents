@@ -31,21 +31,45 @@ namespace ParserTests
         public void TestFromBSString()
         {
             LineSegmentParser parser = new LineSegmentParser();
-            LineSegment<int> segment = parser.FromString("This better throws");
+            try
+            {
+                LineSegment<int> segment = parser.FromString("This better throws");
+            }
+            catch (LineSegmentParserException ex)
+            {
+                return;
+            }
+            Assert.IsTrue(false);
         }
 
         [TestMethod]
         public void TestFromEmptyString()
         {
             LineSegmentParser parser = new LineSegmentParser();
-            LineSegment<int> segment = parser.FromString("");
+            try
+            {
+                LineSegment<int> segment = parser.FromString("");
+            }
+            catch (LineSegmentParserException ex)
+            {
+                return;
+            }
+            Assert.IsTrue(false);
         }
 
         [TestMethod]
         public void TestFromAlmostCorrectString()
         {
             LineSegmentParser parser = new LineSegmentParser();
-            LineSegment<int> segment = parser.FromString("1,2 -> BS,4");
+            try
+            {
+                LineSegment<int> segment = parser.FromString("1,2 -> BS,4");
+            }
+            catch (LineSegmentParserException ex)
+            {
+                return;
+            }
+            Assert.IsTrue(false);
         }
     }
 }
