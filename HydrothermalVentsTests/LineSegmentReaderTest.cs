@@ -25,7 +25,7 @@ namespace ParserTests
             IIO mockreader = new ReaderMock(new string[] { "0,0 -> 1,1" });
             ILineSegmentParser<int> parser = new LineSegmentParser();
             ILineSegmentReader<int> reader = new LineSegmentReader<int>(parser, new List<IIO> { mockreader });
-            LineSegment<int> ls = reader.GetLineSegment();
+            LineSegment<int>? ls = reader.GetLineSegment();
 
             Assert.IsNotNull(ls);
             ls = reader.GetLineSegment();
