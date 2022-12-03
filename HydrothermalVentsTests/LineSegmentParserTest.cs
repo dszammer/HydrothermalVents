@@ -13,13 +13,13 @@ namespace ParserTests
         [TestMethod]
         public void TestCTOR()
         {
-            LineSegmentParser parser = new LineSegmentParser();
+            ILineSegmentParser<int> parser = new LineSegmentParser();
         }
 
         [TestMethod]
         public void TestFromCorrectString()
         {
-            LineSegmentParser parser = new LineSegmentParser();
+            ILineSegmentParser<int> parser = new LineSegmentParser();
             LineSegment<int> segment = parser.FromString("1,2 -> 3,4");
             Assert.AreEqual(segment.Start[0], 1);
             Assert.AreEqual(segment.Start[1], 2);
@@ -30,7 +30,7 @@ namespace ParserTests
         [TestMethod]
         public void TestFromBSString()
         {
-            LineSegmentParser parser = new LineSegmentParser();
+            ILineSegmentParser<int> parser = new LineSegmentParser();
             try
             {
                 LineSegment<int> segment = parser.FromString("This better throws");
@@ -45,7 +45,7 @@ namespace ParserTests
         [TestMethod]
         public void TestFromEmptyString()
         {
-            LineSegmentParser parser = new LineSegmentParser();
+            ILineSegmentParser<int> parser = new LineSegmentParser();
             try
             {
                 LineSegment<int> segment = parser.FromString("");
@@ -60,7 +60,7 @@ namespace ParserTests
         [TestMethod]
         public void TestFromAlmostCorrectString()
         {
-            LineSegmentParser parser = new LineSegmentParser();
+            ILineSegmentParser<int> parser = new LineSegmentParser();
             try
             {
                 LineSegment<int> segment = parser.FromString("1,2 -> BS,4");

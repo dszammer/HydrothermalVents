@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
-    public class CrossingParser
+    public class CrossingParser : ICrossingParser<int, LineSegment<int>>
     {
         public CrossingParser() { }
         public string ToString(Crossing<int, LineSegment<int>> crossing)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
-    public class LineSegmentParser
+    public class LineSegmentParser : ILineSegmentParser<int>
     {
         public LineSegmentParser() { }
         public LineSegment<int> FromString(string input)
