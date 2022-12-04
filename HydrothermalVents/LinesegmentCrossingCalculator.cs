@@ -10,6 +10,7 @@ namespace HydrothermalVents
 { 
     /// <summary>
     /// Class to calculate the crossing points of line segments.
+    /// This is where the magic happens!
     /// </summary>
     public class LineSegmentCrossingCalculator : ICrossingCalculator<int, LineSegment<int>>
     {
@@ -64,6 +65,17 @@ namespace HydrothermalVents
             int y = Ay + (((By - Ay) * ttop) / bottom);
 
             return new Crossing<int, LineSegment<int>>(new int[] { x, y }, new List<LineSegment<int>>() { elementA, elementB });
+        }
+
+        /// <summary>
+        /// Lines are OK if they are ether:
+        /// Horizontal, Vertical or Diagonal (45°)
+        /// </summary>
+        public bool LineSegmentSatisfiesConstraints(LineSegment<int> elementA)
+        {
+            return elementA.Start[0] == elementA.End[0] 
+                || elementA.Start[1] == elementA.End[1]
+                || Math.Abs(elementA.Start[0] - elementA.End[0]) == Math.Abs(elementA.Start[1] - elementA.End[1]);
         }
     }
 }

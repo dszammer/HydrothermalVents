@@ -37,8 +37,11 @@ namespace HydrothermalVents
             LineSegment<U>? lineSegment;
             while ((lineSegment = m_reader.GetLineSegment()) != null)
             {
-                CalculateAllCrossings(lineSegment);
-                m_linesegments.Add(lineSegment);
+                if(m_calculator.LineSegmentSatisfiesConstraints(lineSegment))
+                {
+                    CalculateAllCrossings(lineSegment);
+                    m_linesegments.Add(lineSegment);
+                }
             }
 
             return m_crossings.Count;
@@ -59,6 +62,7 @@ namespace HydrothermalVents
         {
             m_writer.writeCrossings(m_crossings.Values.ToList());
         }
+
 
         /// <summary>
         /// Calculates crossing points with all line segments contained in m_linesegments.
