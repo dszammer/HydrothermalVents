@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HydrothermalVents": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"../../../../../testin.txt\" -o \"../../../../../testout.txt\""
+    }
+  }
+}

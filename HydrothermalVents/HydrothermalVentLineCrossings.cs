@@ -44,6 +44,9 @@ namespace HydrothermalVents
                 }
             }
 
+            PaintAllLineSegementsAndCrossings();
+            WriteAllLineSegementCrossings();
+
             return m_crossings.Count;
         }
 

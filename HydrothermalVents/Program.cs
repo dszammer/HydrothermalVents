@@ -1,17 +1,53 @@
 ﻿using System;
+using System.Reflection.Metadata;
 
-namespace HydrothermalVents // Note: actual namespace depends on the project name.
+namespace HydrothermalVents
 {
     internal class Program
     {
+        enum ReturnValues : int
+        {
+            OK = 0,
+            BadArgumentFormat = -1,
+            BadInputFileFormat = -2,
+            UnknownExeption = -3
+        }
+
         static int Main(string[] args)
         {
             try
             {
                 string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-                List<IIO> writers = new List<IIO> { new ConsoleWriter(), new FileWriter(dir + @"../../../../../testout.txt") };
-                List<IIO> readers = new List<IIO> { new FileReader(dir+@"../../../../../testin.txt") };
+                ArgumentsParser arguments = new ArgumentsParser(args);
+
+                if (arguments.printHelp())
+                {
+                    printHelp();
+                    return (int)ReturnValues.OK;
+                }
+
+                List<IIO> writers = new List<IIO>();
+
+                if (arguments.writeOutputToConsole())
+                    writers.Add(new ConsoleWriter());
+
+                foreach (string output in arguments.getOutputs()) 
+                {
+                    writers.Add(new FileWriter(dir + output));
+                }
+
+                List<IIO> readers = new List<IIO> ();
+
+                foreach (string inputs in arguments.getInputs())
+                {
+                    readers.Add(new FileReader(dir + inputs));
+                }
+
+                if (readers.Count == 0) 
+                {
+                    throw new BadArgumentFormatException("At least one input source is needed.");
+                }
 
                 ILineSegmentParser<int> lineSegmentParser = new LineSegmentParser();
                 ICrossingParser<int, LineSegment<int>> crossingParser = new CrossingParser();
@@ -21,20 +57,52 @@ namespace HydrothermalVents // Note: actual namespace depends on the project nam
 
                 ICrossingCalculator<int, LineSegment<int>> calculator = new LineSegmentCrossingCalculator();
 
-                HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int,int>(ref reader,ref writer,ref calculator);
+                HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer, ref calculator);
+
+                Console.WriteLine("Calculating... this might take a while.");
+                Console.WriteLine("Press ctrl+C to cancel.");
 
                 HVLC.CalculateAllLineSegementCrossings();
+
+                Console.Clear();
+        
                 HVLC.PaintAllLineSegementsAndCrossings();
                 HVLC.WriteAllLineSegementCrossings();
 
-                return 0;
+                return (int)ReturnValues.OK;
             }
-            catch(Exception ex)
+            catch (ArgumentsParserException ex)
             {
-                return -1;
+                Console.WriteLine($"Bad argument format: \"{ex.Message}\". Aborting calculation.");
+                Console.WriteLine("\n\n");
+                printHelp();
+                return (int)ReturnValues.BadArgumentFormat;
             }
+            catch (LineSegmentParserException ex)
+            {
+                Console.WriteLine($"Corrupt input file: \"{ex.Message}\". Aborting calculation.");
+                return (int)ReturnValues.BadInputFileFormat;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception occured: \"{ex.Message}\". Aborting calculation.");
+                Console.WriteLine("\n\n");
+                printHelp();
+                return (int)ReturnValues.UnknownExeption;
+            }
+        }
+        static void printHelp()
+        {
+            Console.WriteLine("Hydrothermal Vent Line Calulator.");
+            Console.WriteLine("(c) David Szammer 2022. All rights reserved.");
+            Console.WriteLine("");
 
-            
+            Console.WriteLine("Usage: ");
+            Console.WriteLine("\"-i <relative file location>\" \"--input <relative file location>\"\tSecifies input file(s).");
+            Console.WriteLine("\"-o <relative file location>\" \"--output <relative file location>\"\tSecifies output file(s).");
+            Console.WriteLine("\"-s \" \"--silent\"\t\t\t\t\t\t\tNo output in console.");
+            Console.WriteLine("\"-p \" \"--paint\"\t\t\t\t\t\t\t\tPaint line diagram.");
+            Console.WriteLine("\"-h \" \"--help\"\t\t\t\t\t\t\t\tDisplay help.");
         }
     }
 }

@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVents
 {
-    public class CrossingParserException : Exception 
+    public class LineSegmentParserException : Exception 
     {
-        public CrossingParserException()
+        public LineSegmentParserException()
         {
         }
 
-        public CrossingParserException(string message)
+        public LineSegmentParserException(string message)
             : base(message)
         {
         }
 
-        public CrossingParserException(string message, Exception inner)
+        public LineSegmentParserException(string message, Exception inner)
         : base(message, inner)
         {
         }
