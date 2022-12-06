@@ -16,12 +16,12 @@ namespace HydrothermalVents
         /// CTOR
         /// Provide interfaces to the IOParsers
         /// </summary>
-        public HydrothermalVentLineCrossings(ref ILineSegmentReader<U> reader, ref ICrossingsWriter<T, LineSegment<U>> writer, ref ICrossingCalculator<T, LineSegment<U>> calculator)
+        public HydrothermalVentLineCrossings(ICrossingCalculator<T, LineSegment<U>> calculator, ILineSegmentReader<U> reader, ICrossingsWriter<T, LineSegment<U>>? writer, ILineSegmentCrossingPainter<T,LineSegment<U>>? painter)
         {
             m_reader = reader;
             m_writer = writer;
             m_calculator = calculator;
-
+            m_painter = painter;
             m_linesegments = new List<LineSegment<U>>();
             m_crossings = new Dictionary<T[], Crossing<T, LineSegment<U>>>();
         }
@@ -55,7 +55,8 @@ namespace HydrothermalVents
         /// </summary>
         public void PaintAllLineSegementsAndCrossings()
         {
-            //TODO
+            if (m_painter!= null)
+                m_painter.draw(m_linesegments, m_crossings.Values.ToList());
         }
 
         /// <summary>
@@ -63,7 +64,8 @@ namespace HydrothermalVents
         /// </summary>
         public void WriteAllLineSegementCrossings()
         {
-            m_writer.writeCrossings(m_crossings.Values.ToList());
+            if (m_writer!= null)
+                m_writer.writeCrossings(m_crossings.Values.ToList());
         }
 
 
@@ -95,7 +97,7 @@ namespace HydrothermalVents
 
         private ILineSegmentReader<U> m_reader;
         private ICrossingsWriter<T, LineSegment<U>> m_writer;
-
+        private ILineSegmentCrossingPainter<T, LineSegment<U>> m_painter;
         private ICrossingCalculator<T, LineSegment<U>> m_calculator;
 
         private Dictionary<T[], Crossing<T, LineSegment<U>>> m_crossings;

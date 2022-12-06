@@ -17,13 +17,15 @@ namespace HydrothermalVents
         
         public void writeCrossings(List<Crossing<U, T>> crossings)
         {
-            foreach (Crossing<U, T> crossing in crossings) 
+            foreach (IIO writer in m_writers)
             {
-                foreach (IIO writer in m_writers)
+                writer.WriteLine($"Number of dangerous points: {crossings.Count}");
+
+                foreach (Crossing<U, T> crossing in crossings)
                 {
                     writer.WriteLine(m_parser.ToString(crossing));
                 }
-            }
+            } 
         }
 
         List<IIO> m_writers;

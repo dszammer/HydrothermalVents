@@ -49,15 +49,20 @@ namespace HydrothermalVents
                     throw new BadArgumentFormatException("At least one input source is needed.");
                 }
 
+                ICrossingCalculator<int, LineSegment<int>> calculator = new LineSegmentCrossingCalculator();
                 ILineSegmentParser<int> lineSegmentParser = new LineSegmentParser();
                 ICrossingParser<int, LineSegment<int>> crossingParser = new CrossingParser();
-
                 ILineSegmentReader<int> reader = new LineSegmentReader<int>(lineSegmentParser, readers);
                 ICrossingsWriter<int, LineSegment<int>> writer = new CrossingsWriter<int, LineSegment<int>>(crossingParser, writers);
+                ILineSegmentCrossingPainter<int, LineSegment<int>>? painter;
 
-                ICrossingCalculator<int, LineSegment<int>> calculator = new LineSegmentCrossingCalculator();
+                if (arguments.doPainting() && arguments.writeOutputToConsole())
+                    painter = new LineSegmentCrossingPainter(new List<IIO> { new ConsoleWriter() });
+                else
+                    painter = null;
 
-                HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int, int>(ref reader, ref writer, ref calculator);
+
+                HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int, int>(calculator, reader, writer, painter);
 
                 Console.WriteLine("Calculating... this might take a while.");
                 Console.WriteLine("Press ctrl+C to cancel.");
