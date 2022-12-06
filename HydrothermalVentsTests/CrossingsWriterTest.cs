@@ -28,7 +28,7 @@ namespace ParserTests
             Crossing<int, LineSegment<int>> cross = new Crossing<int, LineSegment<int>>(new int[] { 0, 0 }, new List<LineSegment<int>> { new LineSegment<int>(new int[] { 0, 0 }, new int[] { 0, 0 }) });
             writer.writeCrossings(new List<Crossing<int, LineSegment<int>>> { cross });
 
-            Assert.AreEqual(((WriterMock)mockwriter).m_written, 1);
+            Assert.AreEqual(((WriterMock)mockwriter).m_written, 2); // one crossing and one header line
         
         }
 
