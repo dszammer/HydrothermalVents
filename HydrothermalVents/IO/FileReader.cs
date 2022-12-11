@@ -9,29 +9,29 @@ using HydrothermalVents.Parser;
 
 namespace HydrothermalVents.IO
 {
-    public class FileWriter : IIO
+    public class FileReader : IIO
     {
-        public FileWriter(string path)
+        public FileReader(string path)
         {
             m_path = path;
-            m_file = new StreamWriter(path);
+            m_file = new StreamReader(path);
         }
 
-        ~FileWriter()
+        ~FileReader()
         {
             m_file.Close();
         }
         public string? ReadLine()
         {
-            throw new NotImplementedException();
+            return m_file.ReadLine();
         }
 
         public void WriteLine(string line)
         {
-            m_file.WriteLine(line);
+            throw new NotImplementedException();
         }
 
         private string m_path;
-        private StreamWriter m_file;
+        private StreamReader m_file;
     }
 }

@@ -1,0 +1,38 @@
+Calculating... this might take a while.
+Press ctrl+C to cancel.
+1 1    11 
+ 1 1   2  
+  2 1 1 1 
+   1 2 2  
+   12 22 1
+   1 2    
+  1   1   
+ 1     1  
+1       1 
+1         
+Number of dangerous points: 12
+(4,4) -> 2
+(7,1) -> 2
+(7,4) -> 2
+(5,3) -> 2
+(6,4) -> 2
+(4,4) -> 2
+(4,4) -> 2
+(2,2) -> 2
+(6,4) -> 2
+(7,3) -> 2
+(6,4) -> 2
+(5,5) -> 2
+Exception occured: "The handle is invalid.". Aborting calculation.
+
+
+
+Hydrothermal Vent Line Calulator.
+(c) David Szammer 2022. All rights reserved.
+
+Usage: 
+"-i <relative file location>" "--input <relative file location>"	Secifies input file(s).
+"-o <relative file location>" "--output <relative file location>"	Secifies output file(s).
+"-s " "--silent"							No output in console.
+"-d " "--draw"								Draw line diagram.
+"-h " "--help"								Display help.

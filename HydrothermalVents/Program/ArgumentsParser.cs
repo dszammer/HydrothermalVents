@@ -56,7 +56,7 @@ namespace HydrothermalVents
         }
 
         public bool doPainting() => m_args.Contains("-d") || m_args.Contains("--draw");
-        public bool writeOutputToConsole () => !(m_args.Contains("-s") || m_args.Contains("--silent"));
+        public bool writeOutputToConsole () => !(m_args.Contains("-q") || m_args.Contains("--quiet"));
         public bool printHelp() => (m_args.Contains("-h") || m_args.Contains("--help") || m_args.Contains("-?"));
 
         string[] m_args;

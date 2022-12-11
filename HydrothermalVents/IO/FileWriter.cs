@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,29 +10,29 @@ using HydrothermalVents.Parser;
 
 namespace HydrothermalVents.IO
 {
-    public class FileReader : IIO
+    public class FileWriter : IIO
     {
-        public FileReader(string path)
+        public FileWriter(string path)
         {
             m_path = path;
-            m_file = new StreamReader(path);
         }
 
-        ~FileReader()
+        ~FileWriter()
         {
-            m_file.Close();
         }
         public string? ReadLine()
-        {
-            return m_file.ReadLine();
-        }
-
-        public void WriteLine(string line)
         {
             throw new NotImplementedException();
         }
 
+        public void WriteLine(string line)
+        {
+            m_file = new StreamWriter(m_path);
+            m_file.WriteLine(line);
+            m_file.Close();
+        }
+
         private string m_path;
-        private StreamReader m_file;
+        private StreamWriter m_file;
     }
 }

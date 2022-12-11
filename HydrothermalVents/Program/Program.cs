@@ -67,16 +67,14 @@ namespace HydrothermalVents
 
 
                 HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int, int>(calculator, reader, writer, painter);
-
-                Console.WriteLine("Calculating... this might take a while.");
-                Console.WriteLine("Press ctrl+C to cancel.");
-
+                
+                if (arguments.writeOutputToConsole())
+                {
+                    Console.WriteLine("Calculating... this might take a while.");
+                    Console.WriteLine("Press ctrl+C to cancel.");
+                }
+                    
                 HVLC.CalculateAllLineSegementCrossings();
-
-                Console.Clear();
-
-                HVLC.PaintAllLineSegementsAndCrossings();
-                HVLC.WriteAllLineSegementCrossings();
 
                 return (int)ReturnValues.OK;
             }
@@ -109,7 +107,7 @@ namespace HydrothermalVents
             Console.WriteLine("Usage: ");
             Console.WriteLine("\"-i <relative file location>\" \"--input <relative file location>\"\tSecifies input file(s).");
             Console.WriteLine("\"-o <relative file location>\" \"--output <relative file location>\"\tSecifies output file(s).");
-            Console.WriteLine("\"-s \" \"--silent\"\t\t\t\t\t\t\tNo output in console.");
+            Console.WriteLine("\"-q \" \"--quiet\"\t\t\t\t\t\t\tNo output in console.");
             Console.WriteLine("\"-d \" \"--draw\"\t\t\t\t\t\t\t\tDraw line diagram.");
             Console.WriteLine("\"-h \" \"--help\"\t\t\t\t\t\t\t\tDisplay help.");
         }
