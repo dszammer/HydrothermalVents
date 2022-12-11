@@ -2,7 +2,7 @@
   "profiles": {
     "HydrothermalVents": {
       "commandName": "Project",
-      "commandLineArgs": "-i \"../../../../../testin.txt\" -o \"../../../../../testout.txt\" -p"
+      "commandLineArgs": "-i \"../../../../../testin.txt\" -o \"../../../../../testout.txt\" -d"
     }
   }
 }
