@@ -10,15 +10,22 @@ using HydrothermalVents.BusinessLogic;
 namespace HydrothermalVents
 {
     /// <summary>
-    /// Core BL class
-    /// Calculates all crossing points of the provided line segments.
+    /// Core business logic class for calculating all crossing points of the provided line segments.
     /// </summary>
+    /// <typeparam name="U">The type of the coordinates, which must be a value type.</typeparam>
+    /// <typeparam name="T">The type of the crossing elements, which must be a value type.</typeparam>
+    /// <remarks>
+    /// The <see cref="HydrothermalVentLineCrossings{U, T}"/> class uses various interfaces to read line segments, calculate crossings, and optionally paint and write the results.
+    /// </remarks>
     public class HydrothermalVentLineCrossings<U, T> where U : struct where T : struct
     {
         /// <summary>
-        /// CTOR
-        /// Provide interfaces to the IOParsers
+        /// Initializes a new instance of the <see cref="HydrothermalVentLineCrossings{U, T}"/> class with the specified interfaces.
         /// </summary>
+        /// <param name="calculator">The calculator used to determine the crossings of line segments.</param>
+        /// <param name="reader">The reader used to fetch line segments.</param>
+        /// <param name="writer">The writer used to output the crossings (optional).</param>
+        /// <param name="painter">The painter used to visualize the line segments and crossings (optional).</param>
         public HydrothermalVentLineCrossings(ICrossingCalculator<T, LineSegment<U>> calculator, ILineSegmentReader<U> reader, ICrossingsWriter<T, LineSegment<U>>? writer, ILineSegmentCrossingPainter<T,LineSegment<U>>? painter)
         {
             m_reader = reader;
@@ -30,11 +37,9 @@ namespace HydrothermalVents
         }
 
         /// <summary>
-        /// Fetches line segments from the provided reader until exhausted.
-        /// Crossings of each new line segment are calculated with all previously read line segments.
-        
-        /// return: the final number of line segment crossings
+        /// Fetches line segments from the provided reader until exhausted and calculates all crossing points.
         /// </summary>
+        /// <returns>The final number of line segment crossings.</returns>
         public int CalculateAllLineSegementCrossings()
         {
             LineSegment<U>? lineSegment;
@@ -54,7 +59,7 @@ namespace HydrothermalVents
         }
 
         /// <summary>
-        /// All line segments and crossings are passed to the painter
+        /// Passes all line segments and crossings to the painter.
         /// </summary>
         public void PaintAllLineSegementsAndCrossings()
         {
@@ -63,7 +68,7 @@ namespace HydrothermalVents
         }
 
         /// <summary>
-        /// All crossings are passed to the writer.
+        /// Passes all crossings to the writer.
         /// </summary>
         public void WriteAllLineSegementCrossings()
         {
@@ -75,8 +80,8 @@ namespace HydrothermalVents
         /// <summary>
         /// Calculates crossing points with all line segments contained in m_linesegments.
         /// All found new crossing points are added to m_crossings.
-        /// param lineSegment: the new line segment.
         /// </summary>
+        /// <param name="lineSegment">The new line segment.</param>
         private void CalculateAllCrossings(LineSegment<U> lineSegment)
         {
             foreach (LineSegment<U> linesegmentFromList in m_linesegments)
@@ -95,8 +100,6 @@ namespace HydrothermalVents
                 }
             }
         }
-        public Dictionary<T[], Crossing<T, LineSegment<U>>> Crossings { get => m_crossings; set => m_crossings = value; }
-        public List<LineSegment<U>> Linesegments { get => m_linesegments; set => m_linesegments = value; }
 
         private ILineSegmentReader<U> m_reader;
         private ICrossingsWriter<T, LineSegment<U>> m_writer;

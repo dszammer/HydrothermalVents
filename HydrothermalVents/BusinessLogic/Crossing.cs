@@ -6,11 +6,16 @@ using System.Collections.Generic;
 namespace HydrothermalVents.BusinessLogic
 {
     /// <summary>
-    /// Generic crossing point of n elements of type T. Coordinates are of type U
-    /// Depending on the crossing elements and the dimension nature of position can be derived.
-    /// I.e. Two Planes in 3D cross in a line segment. Thus T would be a Plane and U a line segment.
-    /// Notice: No checks are in place to match U and T.
+    /// Represents a generic crossing point of n elements of type <see cref="T"/> with coordinates of type <see cref="U"/>.
     /// </summary>
+    /// <typeparam name="U">The type of the coordinates, which must be a value type.</typeparam>
+    /// <typeparam name="T">The type of the crossing elements, which must be a reference type.</typeparam>
+    /// <remarks>
+    /// The <see cref="Crossing{U, T}"/> class models the intersection of multiple elements in a given space.
+    /// The nature of the position can be derived based on the crossing elements and the dimension.
+    /// For example, two planes in 3D space intersect in a line segment, where <see cref="T"/> would be a plane and <see cref="U"/> a line segment.
+    /// Note that no checks are in place to ensure that <see cref="U"/> and <see cref="T"/> are compatible.
+    /// </remarks>
     public class Crossing<U, T> where U : struct
                                 where T : class
     {

@@ -12,19 +12,29 @@ namespace HydrothermalVents.BusinessLogic
     /// Class to calculate the crossing points of line segments.
     /// This is where the magic happens!
     /// </summary>
+    /// <remarks>
+    /// The <see cref="LineSegmentCrossingCalculator"/> class implements the <see cref="ICrossingCalculator{int, LineSegment{int}}"/> interface
+    /// to calculate the intersection points of line segments in 2-dimensional space.
+    /// </remarks>
     public class LineSegmentCrossingCalculator : ICrossingCalculator<int, LineSegment<int>>
     {
         /// <summary>
-        /// Calculates the crossing point of two line segments in 2 dimensional space
+        /// Calculates the crossing point of two line segments in 2-dimensional space
         /// by solving:
         /// Cx = ASx + (AEx - ASx)t = BSx + (BEx - BSx)t
         /// Cy = ASy + (AEy - ASy)u = BSy + (BEy - BSy)u
-        /// https://en.wikipedia.org/wiki/Intersection_(geometry)#Two_line_segments
-        /// param elementA: first of the two line segments.
-        /// param elementB: second of the two line segments.
-        /// return: If an intersection exist the point of intersection (containing both line segments).
-        ///         null otherwise.
         /// </summary>
+        /// <param name="elementA">The first line segment.</param>
+        /// <param name="elementB">The second line segment.</param>
+        /// <returns>
+        /// A <see cref="Crossing{int, LineSegment{int}}"/> object representing the point of intersection (containing both line segments),
+        /// or <c>null</c> if no intersection exists.
+        /// </returns>
+        /// <remarks>
+        /// The method uses the parametric equations of the line segments to determine the intersection point.
+        /// If the line segments are parallel or do not intersect within their lengths, the method returns <c>null</c>.
+        /// For more information, see <a href="https://en.wikipedia.org/wiki/Intersection_(geometry)#Two_line_segments">Intersection of two line segments</a>.
+        /// </remarks>
         public Crossing<int, LineSegment<int>>? CalculateCrossing(LineSegment<int> elementA, LineSegment<int> elementB)
         {
             int Ax = elementA.Start[0];
@@ -68,9 +78,15 @@ namespace HydrothermalVents.BusinessLogic
         }
 
         /// <summary>
-        /// Lines are OK if they are ether:
-        /// Horizontal, Vertical or Diagonal (45°)
+        /// Checks if a line segment satisfies certain constraints.
         /// </summary>
+        /// <param name="elementA">The line segment to check.</param>
+        /// <returns>
+        /// <c>true</c> if the line segment is horizontal, vertical, or diagonal (45°); otherwise, <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// This method ensures that the line segment meets specific criteria before calculating intersections.
+        /// </remarks>
         public bool LineSegmentSatisfiesConstraints(LineSegment<int> elementA)
         {
             return elementA.Start[0] == elementA.End[0]
