@@ -7,21 +7,48 @@ using HydrothermalVents.IO;
 
 namespace HydrothermalVents
 {
+    /// <summary>
+    /// The main entry point for the Hydrothermal Vents application.
+    /// </summary>
     internal class Program
     {
+        /// <summary>
+        /// Defines the return values for the application.
+        /// </summary>
         enum ReturnValues : int
         {
+            /// <summary>
+            /// Indicates that the application completed successfully.
+            /// </summary>
             OK = 0,
+
+            /// <summary>
+            /// Indicates that there was a bad argument format.
+            /// </summary>
             BadArgumentFormat = -1,
+
+            /// <summary>
+            /// Indicates that there was a bad input file format.
+            /// </summary>
             BadInputFileFormat = -2,
+
+            /// <summary>
+            /// Indicates that an unknown exception occurred.
+            /// </summary>
             UnknownExeption = -3
         }
 
+        /// <summary>
+        /// The main entry point for the application.
+        /// It builds the application based on the command-line arguments and runs the calculation process and handles exeptions.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
+        /// <returns>An integer representing the application's exit code.</returns>
         static int Main(string[] args)
         {
             try
             {
-                string dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string? dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
                 ArgumentsParser arguments = new ArgumentsParser(args);
 
@@ -31,6 +58,7 @@ namespace HydrothermalVents
                     return (int)ReturnValues.OK;
                 }
 
+                // Build the BL: HydrothermalVentLineCrossings
                 List<IIO> writers = new List<IIO>();
 
                 if (arguments.writeOutputToConsole())
@@ -65,7 +93,6 @@ namespace HydrothermalVents
                 else
                     painter = null;
 
-
                 HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossings<int, int>(calculator, reader, writer, painter);
                 
                 if (arguments.writeOutputToConsole())
@@ -73,7 +100,8 @@ namespace HydrothermalVents
                     Console.WriteLine("Calculating... this might take a while.");
                     Console.WriteLine("Press ctrl+C to cancel.");
                 }
-                    
+
+                // The magic happens here.
                 HVLC.CalculateAllLineSegementCrossings();
 
                 return (int)ReturnValues.OK;
@@ -98,6 +126,10 @@ namespace HydrothermalVents
                 return (int)ReturnValues.UnknownExeption;
             }
         }
+
+        /// <summary>
+        /// Prints the help information for the application.
+        /// </summary>
         static void printHelp()
         {
             Console.WriteLine("Hydrothermal Vent Line Calulator.");

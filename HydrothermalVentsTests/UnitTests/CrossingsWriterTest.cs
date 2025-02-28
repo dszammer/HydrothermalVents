@@ -11,9 +11,15 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVentsUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="CrossingsWriter{U, T}"/> class.
+    /// </summary>
     [TestClass]
     public class CrossingsWriterTest
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="CrossingsWriter{U, T}"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
@@ -22,6 +28,9 @@ namespace HydrothermalVentsUnitTests
             ICrossingsWriter<int, LineSegment<int>> writer = new CrossingsWriter<int, LineSegment<int>>(parser, new List<IIO> { mockwriter });
         }
 
+        /// <summary>
+        /// Tests the <see cref="CrossingsWriter{U, T}.writeCrossings(List{Crossing{U, T}})"/> method.
+        /// </summary>
         [TestMethod]
         public void TestWriteCrossings()
         {

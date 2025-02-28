@@ -4,8 +4,17 @@ using HydrothermalVents.BusinessLogic;
 
 namespace HydrothermalVents.Parser
 {
+    /// <summary>
+    /// Provides methods to read <see cref="LineSegment{T}"/> objects from multiple readers.
+    /// </summary>
+    /// <typeparam name="T">The type of the coordinates, which must be a value type.</typeparam>
     public class LineSegmentReader<T> : ILineSegmentReader<T> where T : struct
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegmentReader{T}"/> class with the specified parser and readers.
+        /// </summary>
+        /// <param name="parser">The parser used to parse line segments.</param>
+        /// <param name="readers">The list of readers to read lines of text from.</param>
         public LineSegmentReader(ILineSegmentParser<T> parser, List<IIO> readers)
         {
             m_parser = parser;
@@ -13,7 +22,11 @@ namespace HydrothermalVents.Parser
             m_currentReaderIndex = 0;
         }
 
-        public LineSegment<T> GetLineSegment()
+        /// <summary>
+        /// Fetches the next line segment.
+        /// </summary>
+        /// <returns>A <see cref="LineSegment{T}"/> object representing the next line segment, or <c>null</c> if no more line segments are available.</returns>
+        public LineSegment<T>? GetLineSegment()
         {
             do
             {

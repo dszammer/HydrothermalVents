@@ -102,8 +102,8 @@ namespace HydrothermalVents
         }
 
         private ILineSegmentReader<U> m_reader;
-        private ICrossingsWriter<T, LineSegment<U>> m_writer;
-        private ILineSegmentCrossingPainter<T, LineSegment<U>> m_painter;
+        private ICrossingsWriter<T, LineSegment<U>>? m_writer;
+        private ILineSegmentCrossingPainter<T, LineSegment<U>>? m_painter;
         private ICrossingCalculator<T, LineSegment<U>> m_calculator;
 
         private Dictionary<T[], Crossing<T, LineSegment<U>>> m_crossings;

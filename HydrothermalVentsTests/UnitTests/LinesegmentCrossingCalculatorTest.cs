@@ -6,15 +6,24 @@ using System.Collections.Generic;
 
 namespace HydrothermalVentsUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="LineSegmentCrossingCalculator"/> class.
+    /// </summary>
     [TestClass]
     public class LinesegmentCrossingCalculatorTest
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="LineSegmentCrossingCalculator"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
             ICrossingCalculator<int, LineSegment<int>> calc = new LineSegmentCrossingCalculator();
         }
 
+        /// <summary>
+        /// Tests the <see cref="LineSegmentCrossingCalculator.CalculateCrossing(LineSegment{int}, LineSegment{int})"/> method with crossing line segments.
+        /// </summary>
         [TestMethod]
         public void TestAddLineWithCrossing()
         {
@@ -29,6 +38,9 @@ namespace HydrothermalVentsUnitTests
             Assert.IsTrue(cross != null);
         }
 
+        /// <summary>
+        /// Tests the <see cref="LineSegmentCrossingCalculator.CalculateCrossing(LineSegment{int}, LineSegment{int})"/> method with parallel line segments.
+        /// </summary>
         [TestMethod]
         public void TestAddLineParrallels()
         {
@@ -44,6 +56,9 @@ namespace HydrothermalVentsUnitTests
             Assert.IsTrue(cross == null);
         }
 
+        /// <summary>
+        /// Tests the <see cref="LineSegmentCrossingCalculator.CalculateCrossing(LineSegment{int}, LineSegment{int})"/> method with line segments that do not intersect within their bounds.
+        /// </summary>
         [TestMethod]
         public void TestAddLineOutOfBounds()
         {

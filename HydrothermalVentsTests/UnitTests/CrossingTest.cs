@@ -4,9 +4,15 @@ using HydrothermalVents.BusinessLogic;
 
 namespace HydrothermalVentsUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="Crossing{U, T}"/> class.
+    /// </summary>
     [TestClass]
     public class CrossingTest
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="Crossing{U, T}"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
@@ -17,6 +23,10 @@ namespace HydrothermalVentsUnitTests
 
             Crossing<int, LineSegment<int>> cross = new Crossing<int, LineSegment<int>>(pos, listLines);
         }
+        
+        /// <summary>
+        /// Tests the getter and setter for the <see cref="Crossing{U, T}.Position"/> property.
+        /// </summary>
         [TestMethod]
         public void TestPositionGetSet()
         {
@@ -27,6 +37,9 @@ namespace HydrothermalVentsUnitTests
             Assert.IsTrue(cross.Position[0] == 10);
         }
 
+        /// <summary>
+        /// Tests the getter and setter for the <see cref="Crossing{U, T}.Elements"/> property.
+        /// </summary>
         [TestMethod]
         public void TestLinesGetSet()
         {
@@ -43,6 +56,9 @@ namespace HydrothermalVentsUnitTests
 
         }
 
+        /// <summary>
+        /// Tests the <see cref="Crossing{U, T}.AddElement(T)"/> method.
+        /// </summary>
         [TestMethod]
         public void TestAddLine()
         {

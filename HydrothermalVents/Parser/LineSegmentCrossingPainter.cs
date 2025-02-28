@@ -9,6 +9,7 @@ namespace HydrothermalVents.Parser
         public LineSegmentCrossingPainter(List<IIO>? writers)
         {
             m_writers = writers;
+            m_canvas = Array.Empty<char[]>();
         }
 
         public void draw(List<LineSegment<int>> lineSegments, List<Crossing<int, LineSegment<int>>> crossings)
@@ -60,8 +61,14 @@ namespace HydrothermalVents.Parser
 
         private void paintCanvas()
         {
-            foreach (IIO writer in m_writers)
+            if (m_writers == null)
+                return;
+
+            foreach (IIO? writer in m_writers)
             {
+                if (writer == null)
+                    continue;
+
                 for (int i = 0; i < m_canvas.GetLength(0); i++)
                 {
                     writer.WriteLine(new string(m_canvas[i]));
@@ -108,7 +115,7 @@ namespace HydrothermalVents.Parser
             }
         }
 
-        private List<IIO> m_writers;
+        private List<IIO>? m_writers;
         private char[][] m_canvas;
 
         private int zeroX = 0, zeroY = 0;

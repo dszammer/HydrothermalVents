@@ -12,9 +12,15 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVentsUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="LineSegmentReader{T}"/> class.
+    /// </summary>
     [TestClass]
     public class LineSegmentReader
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="LineSegmentReader{T}"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
@@ -23,6 +29,9 @@ namespace HydrothermalVentsUnitTests
             ILineSegmentReader<int> reader = new LineSegmentReader<int>(parser, new List<IIO> { mockreader });
         }
 
+        /// <summary>
+        /// Tests the <see cref="LineSegmentReader{T}.GetLineSegment"/> method.
+        /// </summary>
         [TestMethod]
         public void TestWriteCrossings()
         {

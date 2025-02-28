@@ -3,13 +3,18 @@
 using HydrothermalVents;
 using HydrothermalVents.BusinessLogic;
 using HydrothermalVentsTests;
-using HydrothermalVentsTests;
 
 namespace HydrothermalVentsCompontentTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="HydrothermalVentLineCrossings{T, U}"/> class.
+    /// </summary>
     [TestClass]
     public class HydrothermalVentLineCrossingsTest
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="HydrothermalVentLineCrossings{T, U}"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
@@ -21,10 +26,13 @@ namespace HydrothermalVentsCompontentTests
 
             HydrothermalVentLineCrossings<int, int> hydro = new HydrothermalVentLineCrossings<int, int>(calculator, reader, writer, painter);
         }
+
+        /// <summary>
+        /// Tests the calculation of line segment crossings.
+        /// </summary>
         [TestMethod]
         public void TestCalculateLineCrossings()
         {
-            //Line segments are crossing.
             LineSegment<int> line1 = new LineSegment<int>(new int[] { 2, 1 }, new int[] { 2, 4 });
             LineSegment<int> line2 = new LineSegment<int>(new int[] { 1, 3 }, new int[] { 3, 1 });
             LineSegment<int> line3 = new LineSegment<int>(new int[] { 5, 5 }, new int[] { 6, 6 });
@@ -41,6 +49,7 @@ namespace HydrothermalVentsCompontentTests
             hydro.WriteAllLineSegementCrossings();
 
             Assert.IsTrue(((CrossingsWriterMock<int, LineSegment<int>>)writer).m_written);
+            Assert.IsTrue(((LineSegmentCrossingPainterMock)painter).m_drew);
         }
     }
 }

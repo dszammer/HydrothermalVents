@@ -11,15 +11,24 @@ using System.Threading.Tasks;
 
 namespace HydrothermalVentsUnitTests
 {
+    /// <summary>
+    /// Contains unit tests for the <see cref="CrossingParser"/> class.
+    /// </summary>
     [TestClass]
     public class CrossingParserTest
     {
+        /// <summary>
+        /// Tests the constructor of the <see cref="CrossingParser"/> class.
+        /// </summary>
         [TestMethod]
         public void TestCTOR()
         {
             ICrossingParser<int, LineSegment<int>> parser = new CrossingParser();
         }
 
+        /// <summary>
+        /// Tests the <see cref="CrossingParser.ToString(Crossing{int, LineSegment{int}})"/> method.
+        /// </summary>
         [TestMethod]
         public void TestToString()
         {

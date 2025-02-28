@@ -4,8 +4,16 @@ using HydrothermalVents.Exceptions;
 
 namespace HydrothermalVents
 {
+    /// <summary>
+    /// Parses command-line arguments for the application.
+    /// </summary>
     public class ArgumentsParser
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArgumentsParser"/> class with the specified arguments.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
+        /// <exception cref="NoArgumentsException">Thrown when no arguments are provided.</exception>
         public ArgumentsParser(string[] args)
         {
             if(args.Length == 0) 
@@ -16,6 +24,11 @@ namespace HydrothermalVents
             m_args = args;
         }
 
+        /// <summary>
+        /// Gets the input file paths from the arguments.
+        /// </summary>
+        /// <returns>A list of input file paths.</returns>
+        /// <exception cref="BadArgumentFormatException">Thrown when the argument format is invalid.</exception>
         public List<string> getInputs()
         {
             try
@@ -35,6 +48,11 @@ namespace HydrothermalVents
             }
         }
 
+        /// <summary>
+        /// Gets the output file paths from the arguments.
+        /// </summary>
+        /// <returns>A list of output file paths.</returns>
+        /// <exception cref="BadArgumentFormatException">Thrown when the argument format is invalid.</exception>
         public List<string> getOutputs()
         {
             try
@@ -55,8 +73,22 @@ namespace HydrothermalVents
             }
         }
 
+        /// <summary>
+        /// Determines whether the drawing option is enabled.
+        /// </summary>
+        /// <returns><c>true</c> if the drawing option is enabled; otherwise, <c>false</c>.</returns>
         public bool doPainting() => m_args.Contains("-d") || m_args.Contains("--draw");
+
+        /// <summary>
+        /// Determines whether the output should be written to the console.
+        /// </summary>
+        /// <returns><c>true</c> if the output should be written to the console; otherwise, <c>false</c>.</returns>
         public bool writeOutputToConsole () => !(m_args.Contains("-q") || m_args.Contains("--quiet"));
+
+        /// <summary>
+        /// Determines whether the help option is enabled.
+        /// </summary>
+        /// <returns><c>true</c> if the help option is enabled; otherwise, <c>false</c>.</returns>
         public bool printHelp() => (m_args.Contains("-h") || m_args.Contains("--help") || m_args.Contains("-?"));
 
         string[] m_args;
