@@ -51,23 +51,28 @@ To execute the compiled application, use:
 dotnet run --project ./HydrothermalVents/HydrothermalVents.csproj
 ```
 
-### 5. Command-Line Parameters
+#### Command-Line Parameters
 
 The application supports the following command-line arguments:
 
--i \<relative file location> / --input \<relative file location> 
+**-i \<relative file location>**  
+**--input \<relative file location>0**
 Specifies the input file(s) to be processed.
 
--o \<relative file location> / --output \<relative file location>
+**-o \<relative file location>**
+**--output \<relative file location>**
 Specifies the output file(s) where results will be saved.
 
--q / --quiet
+**-q**
+**--quiet**
 Runs the program without displaying output in the console.
 
--d / --draw
+**-d**
+**--draw**
 Generates a visual representation of the line diagram.
 
--h / --help
+**-h** 
+**--help**
 Displays help information with usage instructions.
 
 ### Build and run via the provided scripts
