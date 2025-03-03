@@ -13,17 +13,6 @@ namespace HydrothermalVents
     /// </summary>
     public class HydrothermalVentLineCrossingsBuilder
     {
-        private readonly ArgumentsParser _arguments;
-        private readonly string _directory;
-        private List<IIO> _writers;
-        private List<IIO> _readers;
-        private ICrossingCalculator<int, LineSegment<int>> _calculator;
-        private ILineSegmentParser<int> _lineSegmentParser;
-        private ICrossingParser<int, LineSegment<int>> _crossingParser;
-        private ILineSegmentReader<int> _reader;
-        private ICrossingsWriter<int, LineSegment<int>> _writer;
-        private ILineSegmentCrossingPainter<int, LineSegment<int>>? _painter;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HydrothermalVentLineCrossingsBuilder"/> class with the specified arguments and directory.
         /// </summary>
@@ -31,10 +20,10 @@ namespace HydrothermalVents
         /// <param name="directory">The directory path for input and output files.</param>
         public HydrothermalVentLineCrossingsBuilder(ArgumentsParser arguments, string directory)
         {
-            _arguments = arguments;
-            _directory = directory;
-            _writers = new List<IIO>();
-            _readers = new List<IIO>();
+            m_arguments = arguments;
+            m_directory = directory;
+            m_writers = new List<IIO>();
+            m_readers = new List<IIO>();
         }
 
         /// <summary>
@@ -44,12 +33,12 @@ namespace HydrothermalVents
         /// <exception cref="BadArgumentFormatException">Thrown when no input sources are provided.</exception>
         public HydrothermalVentLineCrossingsBuilder ConfigureWriters()
         {
-            if (_arguments.writeOutputToConsole())
-                _writers.Add(new ConsoleWriter());
+            if (m_arguments.writeOutputToConsole())
+                m_writers.Add(new ConsoleWriter());
 
-            foreach (string output in _arguments.getOutputs())
+            foreach (string output in m_arguments.getOutputs())
             {
-                _writers.Add(new FileWriter(Path.Combine(_directory, output)));
+                m_writers.Add(new FileWriter(Path.Combine(m_directory, output)));
             }
 
             return this;
@@ -61,12 +50,12 @@ namespace HydrothermalVents
         /// <returns>The current instance of <see cref="HydrothermalVentLineCrossingsBuilder"/>.</returns>
         public HydrothermalVentLineCrossingsBuilder ConfigureReaders()
         {
-            foreach (string input in _arguments.getInputs())
+            foreach (string input in m_arguments.getInputs())
             {
-                _readers.Add(new FileReader(Path.Combine(_directory, input)));
+                m_readers.Add(new FileReader(Path.Combine(m_directory, input)));
             }
 
-            if (_readers.Count == 0)
+            if (m_readers.Count == 0)
             {
                 throw new BadArgumentFormatException("At least one input source is needed.");
             }
@@ -78,19 +67,18 @@ namespace HydrothermalVents
         /// Configures the parsers and calculators.
         /// </summary>
         /// <returns>The current instance of <see cref="HydrothermalVentLineCrossingsBuilder"/>.</returns>
-
         public HydrothermalVentLineCrossingsBuilder ConfigureParsersAndCalculators()
         {
-            _calculator = new LineSegmentCrossingCalculator();
-            _lineSegmentParser = new LineSegmentParser();
-            _crossingParser = new CrossingParser();
-            _reader = new LineSegmentReader<int>(_lineSegmentParser, _readers);
-            _writer = new CrossingsWriter<int, LineSegment<int>>(_crossingParser, _writers);
+            m_calculator = new LineSegmentCrossingCalculator();
+            m_lineSegmentParser = new LineSegmentParser();
+            m_crossingParser = new CrossingParser();
+            m_reader = new LineSegmentReader<int>(m_lineSegmentParser, m_readers);
+            m_writer = new CrossingsWriter<int, LineSegment<int>>(m_crossingParser, m_writers);
 
-            if (_arguments.doPainting() && _arguments.writeOutputToConsole())
-                _painter = new LineSegmentCrossingPainter(new List<IIO> { new ConsoleWriter() });
+            if (m_arguments.doPainting() && m_arguments.writeOutputToConsole())
+                m_painter = new LineSegmentCrossingPainter(new List<IIO> { new ConsoleWriter() });
             else
-                _painter = null;
+                m_painter = null;
 
             return this;
         }
@@ -101,7 +89,18 @@ namespace HydrothermalVents
         /// <returns>A configured instance of <see cref="HydrothermalVentLineCrossings{T, U}"/>.</returns>
         public HydrothermalVentLineCrossings<int, int> Build()
         {
-            return new HydrothermalVentLineCrossings<int, int>(_calculator, _reader, _writer, _painter);
+            return new HydrothermalVentLineCrossings<int, int>(m_calculator, m_reader, m_writer, m_painter);
         }
+
+        private readonly ArgumentsParser m_arguments;
+        private readonly string m_directory;
+        private List<IIO> m_writers;
+        private List<IIO> m_readers;
+        private ICrossingCalculator<int, LineSegment<int>> m_calculator;
+        private ILineSegmentParser<int> m_lineSegmentParser;
+        private ICrossingParser<int, LineSegment<int>> m_crossingParser;
+        private ILineSegmentReader<int> m_reader;
+        private ICrossingsWriter<int, LineSegment<int>> m_writer;
+        private ILineSegmentCrossingPainter<int, LineSegment<int>>? m_painter;
     }
 }
