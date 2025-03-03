@@ -50,6 +50,11 @@ namespace HydrothermalVents
             {
                 string? dir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
+                if (dir == null)
+                {
+                    throw new InvalidOperationException("The directory path could not be determined.");
+                }
+
                 ArgumentsParser arguments = new ArgumentsParser(args);
 
                 if (arguments.printHelp())
@@ -60,9 +65,6 @@ namespace HydrothermalVents
 
                 // Use the builder to construct the business logic
                 HydrothermalVentLineCrossings<int, int> HVLC = new HydrothermalVentLineCrossingsBuilder(arguments, dir)
-                   .ConfigureWriters()
-                   .ConfigureReaders()
-                   .ConfigureParsersAndCalculators()
                    .Build();
 
                 if (arguments.writeOutputToConsole())
